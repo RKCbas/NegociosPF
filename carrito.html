@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de Compra</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <style>
+body {
+      font-family: Arial, sans-serif;
+      background-image: url('fondologin.png'); /* Imagen de fondo */
+      background-size: cover; /* Cubre toda la pantalla */
+      background-position: center; /* Centrado */
+      background-attachment: fixed; /* Fija el fondo para que no se mueva al hacer scroll */
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar-brand img {
+      margin-right: 20px;
+    }
+
+    .card {
+      transition: transform 0.3s;
+      height: 350px; /* Reducido para ajustar el tamaño */
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .footer {
+      background-color: #f8f9fa;
+      color: #495057;
+    }
+
+    /* Estilos para la tabla */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .total {
+      font-weight: bold;
+    }
+
+    .checkout {
+      margin-top: 20px;
+    }
+
+    /* Ajuste del contenedor para que el fondo no se mueva con el contenido */
+    .container {
+      background-color: rgba(255, 255, 255, 0.959); /* Fondo blanco semi-transparente */
+      padding: 20px;
+      border-radius: 10px;
+    }
+    
+    .navbar-brand img {
+      margin-right: 20px;
+    }
+
+    .card {
+      transition: transform 0.3s;
+      height: 350px; /* Reducido para ajustar el tamaño */
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .footer {
+      background-color: #f8f9fa;
+      color: #495057;
+    }
+
+    /* Estilos para la tabla */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .total {
+      font-weight: bold;
+    }
+
+    .checkout {
+      margin-top: 20px;
+    }
+
+    .protection-info {
+      background-color: #a2eeff;
+      padding: 15px;
+      margin-top: 30px;
+      border-radius: 5px;
+    }
+
+    .protection-info h5 {
+      margin-bottom: 10px;
+    }
+
+    .protection-info p {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-top">
+        MANGACKEET
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPerfil" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Perfil
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownPerfil">
+              <a class="dropdown-item" href="registro.html">Registro</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="login.html">Inicio de Sesión</a>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="listadeseos.html"
+              title="Lista de deseos"
+              ><i class="far fa-heart"></i
+            ></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="carrito.html"><i class="fas fa-shopping-cart"></i></a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <h2 class="mb-4">Carrito de Compra</h2>
+    <div class="row">
+      <div class="col-md-8">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Descripción</th>
+              <th>Cantidad</th>
+              <th>Precio</th>
+              <th>Categoría</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="cart-items">
+            <!-- Los productos se cargarán aquí -->
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Resumen de compra</h5>
+            <p class="card-text">Total: $<span id="total"></span></p>
+            <div id="paypal-button-container"></div>
+
+            <script src="https://www.paypal.com/sdk/js?client-id=AWCipL9qY-eM8eSCjCAhM42ETYFUjo_uT0VSIUuSHED5GaeUqSEK5JIPb3JxNqQeIYFNegW_wTrPpEab&currency=MXN&components=buttons&enable-funding=venmo,paylater" data-sdk-integration-source="integrationbuilder_sc"></script>
+            <script>
+              var suma = 0;
+              var cart = JSON.parse(localStorage.getItem("cart")) || [];
+              cart.forEach(function(product){
+                suma += (product.price * product.quantity);
+              });
+
+              var tot = 0 + suma;
+
+              paypal.Buttons({
+                style:{
+                  color: 'blue',
+                  shape: 'pill',
+                  label: 'pay'
+                },
+                createOrder: function(data, actions){
+                  return actions.order.create({
+                    purchase_units:[{
+                      amount: {
+                        value: tot
+                      }
+                    }]
+                  });
+                },
+                onApprove: function (data, actions) {
+                  actions.order.capture().then(function(detalles){
+                    localStorage.setItem("cart", JSON.stringify([]));
+                    window.location.href="index.html";
+                  });
+                },
+                onCancel: function(data){
+                  alert("pago cancelado");
+                }
+              }).render('#paypal-button-container');
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Protección de compra e información adicional -->
+    <div class="protection-info">
+      <h5 style="font-weight: bold;">¡Compra Segura y Protegida!</h5>
+
+      <p>En MANGACKEET garantizamos la protección de tu compra. Si no estás satisfecho con tu producto, puedes realizar cambios o devoluciones dentro de los 30 días posteriores a la compra.</p>
+      <p>Recuerda que todos nuestros precios ya incluyen el IVA, por lo que no tendrás sorpresas al momento de pagar. Tu seguridad es nuestra prioridad, y usamos los mejores métodos de pago para asegurar transacciones seguras.</p>
+      <ul>
+        <li>Productos con IVA incluido en el precio.</li>
+        <li>Devoluciones y cambios en un plazo de 30 días.</li>
+        <li>Garantía de seguridad en todos los pagos.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- jQuery y Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    var total = document.getElementById("total");
+    var suma = 0;
+    var cart = [];
+    $(document).ready(function(){
+      var cartItems = $('#cart-items');
+      cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.forEach(function(product){
+        var row = '<tr>';
+        row += '<td>' + product.title + '</td>';
+        row += '<td>' + product.description + '</td>';
+        row += '<td>' + product.quantity + '</td>';
+        row += '<td>$' + product.price.toFixed(2) + '</td>';
+        row += '<td>' + product.category + '</td>';
+        row += '<td><button class="btn btn-danger btn-sm" onclick="removeFromCart(' + product.id + ')">Eliminar</button></td>';
+        row += '</tr>';
+        cartItems.append(row);
+        suma += (product.price * product.quantity);
+      });
+      total.textContent = suma.toFixed(2);
+    });
+
+    function removeFromCart(productId){
+      var index = cart.findIndex(function(product){
+        return product.id === productId;
+      });
+
+      if(index !== -1){
+        suma = 0;
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        $('#cart-items').empty();
+        cart.forEach(function(product){
+          var row = '<tr>';
+          row += '<td>' + product.title + '</td>';
+          row += '<td>' + product.description + '</td>';
+          row += '<td>' + product.quantity + '</td>';
+          row += '<td>$' + product.price.toFixed(2) + '</td>';
+          row += '<td>' + product.category + '</td>';
+          row += '<td><button class="btn btn-danger btn-sm" onclick="removeFromCart(' + product.id + ')">Eliminar</button></td>';
+          row += '</tr>';
+          $('#cart-items').append(row);
+          suma += (product.price * product.quantity);
+        });
+        total.textContent = suma.toFixed(2);
+      }
+    }
+  </script>
+
+</body>
+</html>

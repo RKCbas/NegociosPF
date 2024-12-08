@@ -1,0 +1,30 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "name": "Alan Arturo Martínez Castro",
+        "email": "alan@gmail.com"
+      },
+      {
+        "id": 2,
+        "name": "José Alonso Mortera Sánchez",
+        "email": "jose@gmail.com"
+      },
+      {
+        "id": 3,
+        "name": "Tadeo David Prieto Delgado",
+        "email": "tadeo@gmail.com"
+      },
+      {
+        "id": 4,
+        "name": "Alonso Ramírez Padilla",
+        "email": "alonso@gmail.com"
+      },
+      {
+        "id": 5,
+        "name": "Isaías Sánchez Martínez",
+        "email": "isaias@gmail.com"
+      }
+    ]
+  }
+  
