@@ -311,24 +311,278 @@
       </form>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3">
-      <div class="container d-flex justify-content-around">
-        <a class="nav-link" href="../contacto.html">Contacto</a>
+       <!-- Footer -->
+<footer class="bg-dark text-white py-4">
+  <div class="container text-center">
+    <div class="row">
+      <!-- Información Legal -->
+      <div class="col-12 col-md-4 mb-3">
+        <h5 class="blue-title">Información Legal</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" id="terms-link" class="text-white text-decoration-none">Términos y condiciones</a></li>
+          <li><a href="#" id="privacy-link" class="text-white text-decoration-none">Política de privacidad</a></li>
+          <li><a href="#" id="about-link" class="text-white text-decoration-none">Acerca de nosotros</a></li>
+        </ul>
+      </div>
 
-        <p>&copy; MANGACKEET 2024</p>
+      <!-- Contactos -->
+      <div class="col-12 col-md-4 mb-3">
+        <h5 class="blue-title">Contactos</h5>
+        <ul class="list-unstyled">
+          <li><a href="mailto:mangaq@gmail.com" class="text-white text-decoration-none">mangackeetq@gmail.com
+          </a></li>
+          <li>+52 449 457 9585</li>
+          <li>Av. Adolfo López Mateos Ote. 1801, Bona Gens, 20256 Aguascalientes, Ags</li>
+        </ul>
+      </div>
 
-        <a
-          href="https://www.facebook.com/profile.php?id=61558172912882&is_tour_dismissed"
-          class="btn"
-          target="_blank"
-        >
-          <img
-            src="https://static.vecteezy.com/system/resources/previews/018/930/476/non_2x/facebook-logo-facebook-icon-transparent-free-png.png"
-            alt="Icono de Facebook"
-            style="width: 40px; height: 40px; vertical-align: middle"
-          />
-        </a>
+      <!-- Redes sociales -->
+      <div class="col-12 col-md-4 mb-3">
+        <h5 class="blue-title">Síguenos en redes sociales</h5>
+        <div class="d-flex justify-content-center">
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/profile.php?id=61569027770828" title="Facebook" target="_blank" class="social-icon">
+            <img src="../facebook.png" alt="Facebook">
+          </a>
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/mangackeet?igsh=cjl3bXZ6dXEycHlo&utm_source=qr" title="Instagram" target="_blank" class="social-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+          </a>
+          <!-- TikTok -->
+          <a href="https://www.tiktok.com/@mangackeet?_t=8rXZ1wYMS7b&_r=1" title="TikTok" target="_blank" class="social-icon">
+            <img src="../Tiktok.png" alt="TikTok">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Modal de cookies -->
+<div id="cookie-message" class="cookie-modal" style="display: none;">
+  <div class="cookie-content">
+    <h2>MANGACKEET</h2>
+    <p>
+      Este aviso de privacidad describe cómo MANGACKEET recopila, utiliza y protege la información personal que pueda recopilar a través de este sitio web.
+    </p>
+    <p>
+      Nos reservamos el derecho de actualizar esta política de privacidad en cualquier momento. Te recomendamos que revises periódicamente esta página para asegurarte de estar familiarizado con cualquier cambio.
+    </p>
+    <p>
+      Si tienes alguna pregunta sobre esta política de privacidad, contáctanos a 
+      <a href="mailto:mangaq@gmail.com">mangackeetq@gmail.com
+      </a>.
+    </p>
+    <div class="cookie-buttons">
+      <button id="accept-cookie" class="btn-primary">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Fondo oscuro -->
+<div id="overlay" class="overlay" style="display: none;"></div>
+
+<!-- Estilos CSS -->
+<style>
+  footer {
+    background-color: #000000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+    font-family: Arial, sans-serif;
+  }
+
+  .blue-title {
+    font-size: 1.75rem;
+    color: #0059ff;
+    font-weight: bold;
+  }
+
+  footer h5 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  footer ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  footer ul li {
+    margin-bottom: 5px;
+  }
+
+  footer ul li a:hover {
+    text-decoration: underline;
+  }
+
+  /* Ajuste de los íconos de redes sociales */
+  .d-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Espacio entre los íconos */
+  }
+
+  .social-icon {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #1877f2; /* Borde azul */
+    background-color: white;
+  }
+
+  .social-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+
+
+  .cookie-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    padding: 20px;
+    z-index: 1000;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .btn-primary {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: #0056b3;
+  }
+
+   /* Estilos para el modal */
+   .cookie-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      border: 1px solid #ddd;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      width: 400px;
+      max-width: 90%;
+      padding: 20px;
+      z-index: 1000;
+      font-family: Arial, sans-serif;
+    }
+
+    .cookie-content h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .cookie-content p {
+      font-size: 14px;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .cookie-content a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .cookie-content a:hover {
+      text-decoration: underline;
+    }
+
+    /* Botones */
+    .cookie-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn-primary {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: #0056b3;
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      background: #5a6268;
+    }
+
+    /* Fondo oscuro */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+ 
+</style>
+
+<!-- JavaScript -->
+<script>
+  function showCookieModal() {
+    document.getElementById("cookie-message").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+  }
+
+  document.getElementById("accept-cookie").addEventListener("click", function() {
+    document.getElementById("cookie-message").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+  });
+
+  ["terms-link", "privacy-link", "about-link"].forEach(id => {
+    document.getElementById(id).addEventListener("click", function(e) {
+      e.preventDefault();
+      showCookieModal();
+    });
+  });
+</script>
       </div>
     </footer>
     <script>
