@@ -438,9 +438,7 @@
             </select>
           
             <!-- Espacio dinámico para mostrar campos específicos según selección -->
-            <div id="dynamic-fields" style="margin-top: 10px;">
-              <!-- Aquí se agregarán los campos dinámicos -->
-            </div>
+            <div id="dynamic-fields" style="margin-top: 10px;"></div>
           
             <!-- Botón para ejecutar la acción -->
             <button class="btn my-2 my-sm-0" style="border-radius: 25px; border: 2px solid #0056b3; background-color: #0056b3; color: white;" type="button" id="action-button">
@@ -449,7 +447,6 @@
           </form>
           
           <script>
-            // Referencia a elementos importantes
             const searchOptions = document.getElementById("search-options");
             const dynamicFields = document.getElementById("dynamic-fields");
             const actionButton = document.getElementById("action-button");
@@ -465,7 +462,6 @@
                 input.type = "search";
                 input.id = "search-input";
                 input.placeholder = "Buscar productos";
-                input.ariaLabel = "Buscar";
                 dynamicFields.appendChild(input);
               } else if (selectedOption === "min-price" || selectedOption === "max-price") {
                 const input = document.createElement("input");
@@ -473,45 +469,78 @@
                 input.type = "number";
                 input.id = selectedOption;
                 input.placeholder = selectedOption === "min-price" ? "Precio mínimo" : "Precio máximo";
-                input.ariaLabel = selectedOption === "min-price" ? "Precio mínimo" : "Precio máximo";
                 dynamicFields.appendChild(input);
-              } else if (selectedOption === "price-desc" || selectedOption === "alphabetical") {
-                const p = document.createElement("p");
-                
-                dynamicFields.appendChild(p);
               }
             });
           
-            // Al hacer clic en el botón, ejecutamos la acción seleccionada
+            // Manejar la acción seleccionada
             actionButton.addEventListener("click", function () {
               const selectedOption = searchOptions.value;
-              if (selectedOption === "buscar-productos") {
-                const searchValue = document.getElementById("search-input")?.value;
-                if (searchValue) {
-                  alert(`Buscando productos relacionados con: ${searchValue}`);
-                } else {
-                  alert("Por favor, ingrese un término de búsqueda.");
-                }
-              } else if (selectedOption === "min-price" || selectedOption === "max-price") {
-                const priceValue = document.getElementById(selectedOption)?.value;
-                if (priceValue) {
-                  alert(
-                    `Filtrando productos con ${
-                      selectedOption === "min-price" ? "un precio mínimo de" : "un precio máximo de"
-                    }: ${priceValue}`
-                  );
-                } else {
-                  alert("Por favor, ingrese un valor de precio.");
-                }
-              } else if (selectedOption === "price-desc") {
-                alert("Ordenando por precio de mayor a menor.");
-              } else if (selectedOption === "alphabetical") {
-                alert("Ordenando alfabéticamente (A-Z).");
-              } else {
-                alert("Por favor, seleccione una opción válida.");
-              }
+              fetch("productos.json")
+                .then(response => response.json())
+                .then(data => {
+                  let products = data.products;
+                  let filteredProducts = products;
+          
+                  if (selectedOption === "buscar-productos") {
+                    const searchValue = document.getElementById("search-input")?.value.toLowerCase();
+                    if (searchValue) {
+                      filteredProducts = products.filter(product =>
+                        product.title.toLowerCase().includes(searchValue) || 
+                        product.category.toLowerCase().includes(searchValue)
+                      );
+                    } else {
+                      alert("Por favor, ingrese un término de búsqueda.");
+                    }
+                  } else if (selectedOption === "min-price" || selectedOption === "max-price") {
+                    const priceValue = parseFloat(document.getElementById(selectedOption)?.value);
+                    if (priceValue || priceValue === 0) {
+                      filteredProducts = products.filter(product =>
+                        selectedOption === "min-price" ? product.price >= priceValue : product.price <= priceValue
+                      );
+                    } else {
+                      alert("Por favor, ingrese un valor de precio.");
+                    }
+                  } else if (selectedOption === "price-desc") {
+                    filteredProducts = products.sort((a, b) => b.price - a.price);
+                  } else if (selectedOption === "alphabetical") {
+                    filteredProducts = products.sort((a, b) => a.title.localeCompare(b.title));
+                  }
+          
+                  displayProducts(filteredProducts);
+                })
+                .catch(error => console.error("Error al obtener los datos:", error));
             });
+          
+            // Mostrar productos en el contenedor
+            function displayProducts(products) {
+              const productContainer = document.getElementById("product-container");
+              productContainer.innerHTML = ""; // Limpiar el contenedor
+          
+              if (products.length === 0) {
+                productContainer.innerHTML = "<p>No se encontraron productos</p>";
+                return;
+              }
+          
+              products.forEach(product => {
+                const productCard = document.createElement("div");
+                productCard.classList.add("card", "col-md-3", "mb-4");
+          
+                productCard.innerHTML = `
+                  <img class="card-img-top" src="${product.thumbnail}" alt="${product.title}" style="height: 200px;">
+                  <div class="card-body">
+                    <h5 class="card-title">${product.title}</h5>
+                    <p class="card-text">${product.description}</p>
+                    <p class="card-text">Precio: $${product.price}</p>
+                    <button class="btn btn-primary">Comprar</button>
+                  </div>
+                `;
+          
+                productContainer.appendChild(productCard);
+              });
+            }
           </script>
+          
           
 
 
