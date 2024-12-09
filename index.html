@@ -339,21 +339,84 @@
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
-                title="Lista Categorias"
+                title="Lista Categorías"
               >
                 Categorías
               </a>
-              <div
-                class="dropdown-menu"
-                aria-labelledby="navbarDropdownProductos"
-              >
-                <a class="dropdown-item" href="index.html" title="Mangas">Mangas</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownProductos">
+                <a class="dropdown-item category-filter" href="#" data-category="Aventura" title="Aventura">Aventura</a>
+                <a class="dropdown-item category-filter" href="#" data-category="Gore" title="Gore">Gore</a>
+                <a class="dropdown-item category-filter" href="#" data-category="Shonen" title="Shonen">Shonen</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="index.html" title="Productos"
-                  >Ver todos los productos</a
-                >
+                <a class="dropdown-item" href="index.html" title="Mangas">Mangas</a>
+                <a class="dropdown-item" href="index.html" title="Productos">Ver todos los productos</a>
               </div>
             </li>
+
+            
+
+
+            <script>
+              // Función para filtrar por categoría
+              function filterByCategory(category) {
+                fetch("productos.json")
+                  .then((response) => response.json())
+                  .then((data) => {
+                    const filteredProducts = data.products.filter((product) =>
+                      product.category.toLowerCase() === category.toLowerCase()
+                    );
+                    displayProducts(filteredProducts); // Usamos la función para mostrar los productos filtrados
+                  })
+                  .catch((error) => {
+                    console.error("Error al obtener los datos:", error);
+                  });
+              }
+            
+              // Asignar evento a los enlaces de las categorías
+              document.querySelectorAll(".category-filter").forEach((link) => {
+                link.addEventListener("click", function (event) {
+                  event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
+                  const category = this.getAttribute("data-category");
+                  filterByCategory(category); // Filtrar por la categoría seleccionada
+                });
+              });
+            
+              // Función para mostrar productos (reutilizada del código anterior)
+              function displayProducts(products) {
+                const productContainer = document.getElementById("product-container");
+                productContainer.innerHTML = ""; // Limpiar el contenedor
+            
+                if (products.length === 0) {
+                  productContainer.innerHTML = "<p>No se encontraron productos</p>";
+                  return;
+                }
+            
+                products.forEach((product) => {
+                  const productCard = document.createElement("div");
+                  productCard.classList.add("card", "col-md-3", "mb-4");
+            
+                  productCard.innerHTML = `
+                    <img class="card-img-top" src="${product.thumbnail}" alt="${product.title}" style="height: 200px;">
+                    <div class="card-body">
+                      <h5 class="card-title">${product.title}</h5>
+                      <p class="card-text">${product.description}</p>
+                      <p class="card-text">Precio: $${product.price}</p>
+                      <button class="btn btn-primary">Comprar</button>
+                    </div>
+                  `;
+            
+                  productContainer.appendChild(productCard);
+                });
+              }
+            </script>
+            
+
+
+
+
+
+
+
             <li class="nav-item">
               <a class="nav-link" href="contacto.html" title="Contacto"
                 >Contacto</a
